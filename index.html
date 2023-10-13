@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloco de Notas e Calculadora</title>
+    <style>
+        /* Estilos gerais para o corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* Cor de fundo Dark */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilo para o bloco de notas */
+        .note-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1e1e1e; /* Cor de fundo do bloco de notas */
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px; /* Altura padrão */
+            border: none;
+            background-color: inherit;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Botão "Limpar" à direita */
+        button.clear-button {
+            float: right;
+        }
+
+        /* Estilos para dispositivos móveis */
+        @media screen and (max-width: 600px) {
+            .note-container {
+                padding: 10px;
+            }
+
+            textarea {
+                height: 150px; /* Altura reduzida para dispositivos móveis */
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            /* Botão "Limpar" à direita em dispositivos móveis */
+            button.clear-button {
+                float: right;
+            }
+
+            /* Espaço entre o bloco de notas e a calculadora */
+            .space {
+                margin-top: 20px;
+            }
+        }
+
+        /* Tema Dark */
+        body.dark-theme {
+            background-color: #121212; /* Cor de fundo Dark */
+            color: #fff;
+        }
+
+        .dark-theme .note-container {
+            background-color: #1e1e1e; /* Cor de fundo do bloco de notas no tema Dark */
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Estilos para a calculadora */
+        .calculator-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 24px;
+            margin-bottom: 10px;
+            background-color: #2c2c2c;
+            color: #fff;
+            border: none;
+            border-bottom: 2px solid #1e1e1e;
+            outline: none;
+        }
+
+        .buttons button {
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #404040;
+            border: none;
+            color: #fff;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .buttons button:hover {
+            background-color: #555;
+        }
+
+        /* Adicione animações ao pressionar os botões */
+        .buttons button:active {
+            transform: scale(0.95);
+            transition: transform 0.1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="note-container">
+        <label for="fileName">Nome do Arquivo:</label>
+        <input type="text" id="fileName" placeholder="nome_do_arquivo.txt">
+        <textarea id="notepad"></textarea>
+        <a id="download-link" download="nota.txt">
+            <button onclick="downloadNote()">Salvar</button>
+        </a>
+        <button class="clear-button" onclick="document.getElementById('notepad').value = ''">Limpar</button>
+    </div>
+    <div class="space"></div>
+    <div class="calculator-container">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            <button class="clear-button" onclick="clearDisplay()">C</button>
+            <button onclick="calculateResult()">=</button>
+        </div>
+    </div>
+    <script>
+        let currentInput = "";
+        let result = "";
+
+        function appendToDisplay(value) {
+            currentInput += value;
+            document.getElementById("display").value = currentInput;
+        }
+
+        function clearDisplay() {
+            currentInput = "";
+            document.getElementById("display").value = "";
+        }
+
+        function calculateResult() {
+            try {
+                result = eval(currentInput);
+                document.getElementById("display").value = result;
+                currentInput = result.toString();
+            } catch (error) {
+                document.getElementById("display").value = "Erro";
+            }
+        }
+
+        function downloadNote() {
+            const fileName = document.getElementById('fileName').value;
+            const noteContent = document.getElementById('notepad').value;
+            
+            const blob = new Blob([noteContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const downloadLink = document.getElementById('download-link');
+            downloadLink.href = url;
+            downloadLink.setAttribute('download', fileName);
+        }
+    </script>
+    <div style="position: absolute; bottom: 10px; right: 10px; font-family: Arial, sans-serif; font-size: 10px; color: white;">
+    By: Lucas Nathan | Insta: <a href="https://instagram.com/071lkz" style="color: white; text-decoration: underline;">instagram.com/071lkz</a>
+</div>
+
+</body>
+</html>
