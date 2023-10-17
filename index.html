@@ -1,3 +1,4 @@
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +7,17 @@
     <title>Bloco de Notas e Calculadora</title>
     <style>
         /* Estilos gerais para o corpo da página */
-     
-html, body {
-    max-width: 100%;
-    max-height: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
+        html, body {
+            max-width: 100%;
+            max-height: 100%;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
         /* Estilo para o bloco de notas */
         .note-container {
-            width: 93%;
-            max-width: 800px;
+            width: 97%;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #1e1e1e; /* Cor de fundo do bloco de notas */
             padding: 20px;
@@ -24,8 +25,8 @@ html, body {
         }
 
         textarea {
-            width: 93%;
-            height: 200px; /* Altura padrão */
+            width: 99%;
+            height: 100px; /* Altura padrão */
             border: none;
             background-color: inherit;
             font-size: 16px;
@@ -55,11 +56,11 @@ html, body {
             }
 
             textarea {
-                height: 150px; /* Altura reduzida para dispositivos móveis */
+                height: 120px; /* Altura reduzida para dispositivos móveis */
             }
 
             button {
-                padding: 8px 16px;
+                padding: 8px 15px;
                 font-size: 14px;
             }
 
@@ -70,7 +71,7 @@ html, body {
 
             /* Espaço entre o bloco de notas e a calculadora */
             .space {
-                margin-top: 20px;
+                margin-top: 5px;
             }
         }
 
@@ -98,7 +99,7 @@ html, body {
         }
 
         input[type="text"] {
-            width: 98%;
+            width: 94%;
             padding: 10px;
             font-size: 24px;
             margin-bottom: 10px;
@@ -127,82 +128,102 @@ html, body {
 
         /* Adicione animações ao pressionar os botões */
         .buttons button:active {
-            transform: scale(0.95);
-            transition: transform 0.1s ease-in-out;
+            transform: scale(0.99);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <div class="note-container">
-        <label for="fileName">Nome do Arquivo:</label>
-        <input type="text" id="fileName" placeholder="nome_do_arquivo.txt">
-        <textarea id="notepad"></textarea>
-        <a id="download-link" download="nota.txt">
-            <button onclick="downloadNote()">Salvar</button>
-        </a>
-        <button class="clear-button" onclick="document.getElementById('notepad').value = ''">Limpar</button>
-    </div>
-    <div class="space"></div>
-    <div class="calculator-container">
-        <input type="text" id="display" readonly>
-        <div class="buttons">
+<div class="note-container">
+    <label for="fileName">Nome do Arquivo:</label>
+    <input type="text" id="fileName" placeholder="nome_do_arquivo.txt">
+    <textarea id="notepad"></textarea>
+    <a id="download-link" download="nota.txt">
+        <button onclick="downloadNote()">Salvar</button>
+    </a>
+    <button class="clear-button" onclick="document.getElementById('notepad').value = ''">Limpar</button>
+</div>
+<div class="space"></div>
+<div class="calculator-container">
+    <input type="text" id="display" readonly>
+    <div class="buttons">
+        <div class="button-row">
             <button onclick="appendToDisplay('7')">7</button>
             <button onclick="appendToDisplay('8')">8</button>
             <button onclick="appendToDisplay('9')">9</button>
             <button onclick="appendToDisplay('/')">/</button>
+        </div>
+        <div class="button-row">
             <button onclick="appendToDisplay('4')">4</button>
             <button onclick="appendToDisplay('5')">5</button>
             <button onclick="appendToDisplay('6')">6</button>
             <button onclick="appendToDisplay('*')">*</button>
+        </div>
+        <div class="button-row">
             <button onclick="appendToDisplay('1')">1</button>
             <button onclick="appendToDisplay('2')">2</button>
             <button onclick="appendToDisplay('3')">3</button>
             <button onclick="appendToDisplay('-')">-</button>
+        </div>
+        <div class="button-row">
             <button onclick="appendToDisplay('0')">0</button>
             <button onclick="appendToDisplay('.')">.</button>
             <button onclick="appendToDisplay('+')">+</button>
             <button class="clear-button" onclick="clearDisplay()">C</button>
+        </div>
+        <div class="button-row">
             <button onclick="calculateResult()">=</button>
         </div>
     </div>
-    <script>
-        let currentInput = "";
-        let result = "";
+</div>
 
-        function appendToDisplay(value) {
-            currentInput += value;
-            document.getElementById("display").value = currentInput;
-        }
+<script>
+    let currentInput = "";
+    let result = "";
 
-        function clearDisplay() {
-            currentInput = "";
-            document.getElementById("display").value = "";
-        }
+    function appendToDisplay(value) {
+        currentInput += value;
+        document.getElementById("display").value = currentInput;
+    }
 
-        function calculateResult() {
-            try {
-                result = eval(currentInput);
-                document.getElementById("display").value = result;
-                currentInput = result.toString();
-            } catch (error) {
-                document.getElementById("display").value = "Erro";
-            }
-        }
+    function clearDisplay() {
+        currentInput = "";
+        document.getElementById("display").value = "";
+    }
 
-        function downloadNote() {
-            const fileName = document.getElementById('fileName').value;
-            const noteContent = document.getElementById('notepad').value;
-            
-            const blob = new Blob([noteContent], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            
-            const downloadLink = document.getElementById('download-link');
-            downloadLink.href = url;
-            downloadLink.setAttribute('download', fileName);
+    function calculateResult() {
+        try {
+            result = eval(currentInput);
+            document.getElementById("display").value = result;
+            currentInput = result.toString();
+        } catch (error) {
+            document.getElementById("display").value = "Erro";
         }
-    </script>
-    <div style="position: absolute; bottom: 10px; right: 10px; font-family: Arial, sans-serif; font-size: 10px; color: white;">
+    }
+
+    function downloadNote() {
+        const fileName = document.getElementById('fileName').value;
+        const noteContent =
+
+ document.getElementById('notepad').value;
+
+        const blob = new Blob([noteContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+
+        const downloadLink = document.getElementById('download-link');
+        downloadLink.href = url;
+        downloadLink.setAttribute('download', fileName);
+    }
+</script>
+<div style="position: absolute; bottom: 10px; right: 10px; font-family: Arial, sans-serif; font-size: 10px; color: white;">
     By: Lucas Nathan | Insta: <a href="https://instagram.com/071lkz" style="color: white; text-decoration: underline;">instagram.com/071lkz</a>
-    </div>
+</div>
 </body>
 </html>
