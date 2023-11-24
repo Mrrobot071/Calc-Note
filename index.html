@@ -1,4 +1,3 @@
- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +15,7 @@
 
         /* Estilo para o bloco de notas */
         .note-container {
-            width: 97%;
+            width: 90%;
             max-width: 900px;
             margin: 0 auto;
             background-color: #1e1e1e; /* Cor de fundo do bloco de notas */
@@ -88,7 +87,7 @@
 
         /* Estilos para a calculadora */
         .calculator-container {
-            width: 93%;
+            width: 90%;
             max-width: 400px;
             margin: 0 auto;
             background-color: #1e1e1e;
@@ -222,6 +221,55 @@
         downloadLink.setAttribute('download', fileName);
     }
 </script>
+   <!-- Botão flutuante para abrir o chat -->
+    <script>
+        // Função para carregar o script do Botpress Web Chat
+        function loadBotpressWebChat() {
+            // Verifique se o script ainda não foi carregado
+            if (!window.botpressWebChat) {
+                const script = document.createElement('script');
+                script.src = "https://cdn.botpress.cloud/webchat/v0/inject.js";
+                script.async = true;
+                script.onload = function () {
+                    // Inicialize o Botpress Web Chat após o carregamento do script
+                    window.botpressWebChat.init({
+                        // Configurações do bot
+                        "composerPlaceholder": "Chat with Jarvis",
+                        "botConversationDescription": "Jarvis-bot.com.br",
+                        "botId": "ac26bdc9-43dd-450b-9ba6-7d75cd6a61e9",
+                        "hostUrl": "https://cdn.botpress.cloud/webchat/v0",
+                        "messagingUrl": "https://messaging.botpress.cloud",
+                        "clientId": "ac26bdc9-43dd-450b-9ba6-7d75cd6a61e9",
+                        "lazySocket": true,
+                        "botName": "Jarvis",
+                        "avatarUrl": "https://w7.pngwing.com/pngs/571/686/png-transparent-jarvis-logo-edwin-jarvis-iron-man-youtube-marvel-cinematic-universe-male-jarvis-ui-comics-superhero-computer-thumbnail.png",
+                        "phoneNumber": "5571992920032",
+                        "termsConditions": "Jarvis-bot.com.br",
+                        "privacyPolicy": "Jarvis-bot.com.br",
+                        "emailAddress": "lnssilvasherlock@gmail.com",
+                        "website": "Jarvis-bot.com.br",
+                        "stylesheet": " ",
+                        "frontendVersion": "v0",
+                        "useSessionStorage": true
+                    });
+                };
+                document.body.appendChild(script);
+            }
+        }
+
+        // Chame a função de carregamento do Botpress Web Chat automaticamente
+        loadBotpressWebChat();
+    </script>
+    <script>
+function toggleMenu() {
+    var menu = document.getElementById("menu");
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+</script> 
 <div style="position: absolute; bottom: 10px; right: 10px; font-family: Arial, sans-serif; font-size: 10px; color: white;">
     By: Lucas Nathan | Insta: <a href="https://instagram.com/071lkz" style="color: white; text-decoration: underline;">instagram.com/071lkz</a>
 </div>
