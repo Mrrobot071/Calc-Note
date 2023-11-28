@@ -4,6 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloco de Notas e Calculadora</title>
+<style>
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        .menu-options {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background-color: silver;
+            border: 1px solid #000000;
+            padding: 10px;
+            z-index: 9999;
+        }
+
+        .menu-options a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            z-index: 9999;
+        }
+    </style>
     <style>
     body {
         background-color: #333; /* Preto cinzento */
@@ -207,6 +238,24 @@
         downloadLink.setAttribute('download', fileName);
     }
 </script>
+<div class="menu-button" onclick="toggleMenu()">☰</div>
+    <div class="menu-options" id="menu">
+        <a href="https://mrrobot071.github.io/0/">Site</a>
+        <a href="https://www.instagram.com/071lkz/">Instagram</a>
+        <a href="https://wa.me/557192920032">WhatsApp</a>
+        <a href="https://github.com/Mrrobot071">GitHub</a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+    </script>
    <!-- Botão flutuante para abrir o chat -->
     <script>
         // Função para carregar o script do Botpress Web Chat
@@ -256,8 +305,7 @@ function toggleMenu() {
     }
 }
 </script> 
-<div style="position: absolute; bottom: 10px; right: 10px; font-family: Arial, sans-serif; font-size: 10px; color: white;">
-    By: Lucas Nathan | Insta: <a href="https://instagram.com/071lkz" style="color: white; text-decoration: underline;">instagram.com/071lkz</a>
-</div>
 </body>
+<div style="position: absolute; bottom: 10px; right: 10px; font-family: Arial, sans-serif; font-size: 10px; color: black;">
+    By: Lucas Nathan | Insta: <a href="https://instagram.com/071lkz" style="color: red; text-decoration: underline;">instagram.com/071lkz</a>
 </html>
